@@ -3,13 +3,19 @@ from scipy.ndimage import maximum_filter, binary_fill_holes, distance_transform_
 from skimage import io, morphology, filters, exposure, color, transform, measure, feature
 
 
-colour_deconv_matrix = qstain = np.array([
+# Colour deconvolution matrix
+colour_deconv_matrix = np.array([
     [.26451728, .5205347, .81183386],
     [.9199094, .29797825, .25489032],
     [.28947765, .80015373, .5253158]
 ])
 
+
 def process_4x(image_filename):
+    """
+    Process widefield images, returning a coloured image
+    containing segmentations of inflammatory areas and veins.
+    """
 
     # Read in the image
     image = transform.rescale(io.imread(image_filename), 0.25)
@@ -79,6 +85,10 @@ def process_4x(image_filename):
 
 
 def process_10x(image_filename):
+    """
+    Process narrowfield images, returning the segmentation of the nuclei
+    as well as the contour of the central inflammatory zone.
+    """
 
     # NUCLEI
 
